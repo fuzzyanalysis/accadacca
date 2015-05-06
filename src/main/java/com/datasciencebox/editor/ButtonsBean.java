@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -39,6 +40,12 @@ public class ButtonsBean implements Serializable {
 	
 	public String getMetadata() {
 		return this.metadata;
+	}
+	
+	public String getClick(){
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String param1 = params.get("param1");
+		return param1 + ", bean used.";
 	}
 
 	public void getJSON() {

@@ -33,6 +33,10 @@
 				<button onclick="load();">JSON</button>
 
 				<br />
+				<p:remoteCommand name="getclick"
+					actionListener="#{buttonsBean.getClick()}"
+					update=":myDetails:name" />
+				
 
 
 				<div id="myDiagram"
@@ -55,10 +59,43 @@
 					<p:outputLabel for="description" value="Description:" />
 					<p:inputText id="description" />
 				</p>
-				<p><div id="grapes">est</div></p>
+				<p>					
+					<p:outputLabel value="Grapes:" />
+					<p:inputText id="grapes" />
+					
+				</p>
+				<p>
+					<div id="grapesDiv">est</div>
+				</p>
+
+				<p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+					<f:facet name="default">
+						<h:outputText value="Status: StandBy" />
+					</f:facet>
+
+					<f:facet name="start">
+						<p:graphicImage name="/images/ajaxloadingbar.gif" />
+					</f:facet>
+
+					<f:facet name="complete">
+						<h:outputText value="Status: Completed" />
+					</f:facet>
+				</p:ajaxStatus>
+
+				<p:ajaxStatus onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()" />
+
+				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+					closable="false" resizable="false" showHeader="false">
+					<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
 			</h:form>
 		</p:layoutUnit>
 	</p:layout>
+
+
+
 
 	<script>
 
@@ -108,13 +145,16 @@
 				// handle clicks
 				
 				function showMessage(s) {
-   					document.getElementById("grapes").textContent = s;
+   					var elem = document.getElementById("myDetails:grapes");
+   					elem.value = s;
+   					//getnodes();
+   					getclick([{param: 'param1', value: elem.value}]);
   				}
 			    
 			    myDiagram.addDiagramListener("ObjectSingleClicked",
 			    	      function(e) {
 			    	        var part = e.subject.part;
-			    	        if (!(part instanceof go.Link)) showMessage("Clicked on " + part.data.key);
+			    	        if (!(part instanceof go.Link)) showMessage("Clicked on " + part.data.text);
 			    	      });
 		        
 
@@ -148,13 +188,13 @@
 				function load() {
 
 					var htmlstring = document.getElementById('myForm:html').value;
-					alert(htmlstring);   
+					//alert(htmlstring);   
 					getnodes();
 				    var nodes = document.getElementById('myForm:mySavedModel').value;
 				    //var nodes = "{#buttonsBean.metadata}"
 				    //var nodes = getnodes();	  
 				    var nodesString = new String(nodes);
-				    alert('nodesString = ' + nodesString);      
+				    //alert('nodesString = ' + nodesString);      
 				    var obj = JSON.parse(nodesString);   
 					//nodes = new String(nodeString);	        
 					myDiagram.model = go.Model.fromJson(obj);
