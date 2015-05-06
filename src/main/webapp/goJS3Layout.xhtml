@@ -23,23 +23,11 @@
 
 			<h:form id="myForm">
 
-				<!-- 					<h:form> -->
-				<!-- 						<p:remoteCommand name="remo" actionListener="#{buttonBean.listener()}" -->
-				<!-- 							update="text" /> -->
-				<!-- 						<h:outputText id="text" value="#{buttonBean.getText()}" /> -->
-				<!-- 						<div onclick="remo()">...</div> -->
-				<!-- 					</h:form> -->
-
-
-
 				<p:remoteCommand name="getnodes"
-					actionListener="#{buttonBean.getJSON()}"
+					actionListener="#{buttonsBean.getJSON()}"
 					update=":myForm:mySavedModel" />
-				<!-- 		<h:outputText id="text" value="#{buttonBean.getText()}" /> -->
-				<h:inputText id="mySavedModel" value="#{buttonBean.metadata}"
+				<h:inputText id="mySavedModel" value="#{buttonsBean.metadata}"
 					style="border: solid 1px black; width: 100%; height: 100px" />
-				<!-- 			<textarea id="myDiagram2" -->
-				<!-- 				style="border: solid 1px black; width: 100%; height: 500px"></textarea> -->
 				<button onclick="load();">Load</button>
 
 				<button onclick="load();">JSON</button>
@@ -50,7 +38,7 @@
 				<div id="myDiagram"
 					style="border: solid 1px black; width: 100%; height: 500px"></div>
 
-				<h:inputText id="html" value="#{buttonBean.message}" />
+				<h:inputText id="html" value="#{buttonsBean.message}" />
 
 			</h:form>
 
@@ -67,6 +55,7 @@
 					<p:outputLabel for="description" value="Description:" />
 					<p:inputText id="description" />
 				</p>
+				<p><div id="grapes">est</div></p>
 			</h:form>
 		</p:layoutUnit>
 	</p:layout>
@@ -115,6 +104,20 @@
 			      $(go.Link,
 			        $(go.Shape, { strokeWidth: 1.5 }));
 
+
+				// handle clicks
+				
+				function showMessage(s) {
+   					document.getElementById("grapes").textContent = s;
+  				}
+			    
+			    myDiagram.addDiagramListener("ObjectSingleClicked",
+			    	      function(e) {
+			    	        var part = e.subject.part;
+			    	        if (!(part instanceof go.Link)) showMessage("Clicked on " + part.data.key);
+			    	      });
+		        
+
 			    load();
 			  } 
 
@@ -141,7 +144,6 @@
 			      });
 			  };
 			  // end FlatTreeLayout
-			  
 			
 				function load() {
 
@@ -149,7 +151,7 @@
 					alert(htmlstring);   
 					getnodes();
 				    var nodes = document.getElementById('myForm:mySavedModel').value;
-				    //var nodes = "{#buttonBean.metadata}"
+				    //var nodes = "{#buttonsBean.metadata}"
 				    //var nodes = getnodes();	  
 				    var nodesString = new String(nodes);
 				    alert('nodesString = ' + nodesString);      
