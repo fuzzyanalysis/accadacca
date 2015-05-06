@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 
-@ManagedBean(name = "buttonBean")
+@ManagedBean(name = "buttonsBean")
 @ViewScoped
-public class ButtonBean implements Serializable {
+public class ButtonsBean implements Serializable {
 
 	public String host;
 	private String text = "Starting text";// getter + setter
