@@ -33,10 +33,12 @@
 				<button onclick="load();">JSON</button>
 
 				<br />
-				<p:remoteCommand name="getclick"
-					actionListener="#{buttonsBean.getClick()}"
-					update=":myDetails:name" />
-				
+
+				<!-- 				<h:inputHidden id="hiddenButton" value="#{buttonsBean.clickValue}"/> -->
+				<!-- 				<p:remoteCommand name="getclick" -->
+				<!-- 					actionListener="#{buttonsBean.getClick()}" -->
+				<!-- 					update=":myDetails:name" process=":myDetails:hiddenButton" /> -->
+
 
 
 				<div id="myDiagram"
@@ -51,43 +53,35 @@
 
 			<h:form id="myDetails">
 				<p>
-					<p:outputLabel for="name" value="Name:" />
-					<p:inputText id="name" />
+
+					<!--  note the remoteCommand must be below the control it processes, i.e. below hiddenButton -->
+					<p:outputLabel for="hiddenButton" value="Javascript to Bean:" />
+					<p:inputText id="hiddenButton" value="#{buttonsBean.clickValue}" />
+					<p:remoteCommand name="getclick"
+						actionListener="#{buttonsBean.getClick()}"
+						update=":myDetails:description" process=":myDetails:hiddenButton" />
 				</p>
 
 				<p>
 					<p:outputLabel for="description" value="Description:" />
 					<p:inputText id="description" />
 				</p>
-				<p>					
-					<p:outputLabel value="Grapes:" />
-					<p:inputText id="grapes" />
-					
-				</p>
 				<p>
-					<div id="grapesDiv">est</div>
+					<p:outputLabel value="Javascript Click:" />
+					<p:inputText id="grapes" />
+
 				</p>
-
-				<p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
-					<f:facet name="default">
-						<h:outputText value="Status: StandBy" />
-					</f:facet>
-
-					<f:facet name="start">
-						<p:graphicImage name="/images/ajaxloadingbar.gif" />
-					</f:facet>
-
-					<f:facet name="complete">
-						<h:outputText value="Status: Completed" />
-					</f:facet>
-				</p:ajaxStatus>
 
 				<p:ajaxStatus onstart="PF('statusDialog').show()"
 					onsuccess="PF('statusDialog').hide()" />
 
+
 				<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
-					closable="false" resizable="false" showHeader="false">
-					<p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+					closable="false" resizable="false" showHeader="false"
+					fitViewport="true">
+					<p:graphicImage name="/img/cat_running_2.gif"
+						style="left: 100%; top: 100%;" />
+					<br>Processing...</br>
 				</p:dialog>
 
 			</h:form>
@@ -100,10 +94,7 @@
 	<script>
 
 			function init() {
-				
-				//getnodes();
-				//alert('finished getting node json.');
-			    //if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
+
 			    var $ = go.GraphObject.make;  // for conciseness in defining templates
 			    myDiagram =
 			      $(go.Diagram, "myDiagram",
@@ -137,17 +128,28 @@
 			        )
 			      );
 
-			    myDiagram.linkTemplate =
-			      $(go.Link,
-			        $(go.Shape, { strokeWidth: 1.5 }));
+// 			    myDiagram.linkTemplate =
+// 			      $(go.Link,
+// 			        $(go.Shape, { strokeWidth: 1.5 }),
+// 			        $(go.TextBlock, new go.Binding("text")) // this is a link label
+// 			        );
+
+  				myDiagram.linkTemplate =
+    				$(go.Link,
+      				$(go.Shape),                           // this is the link shape (the line)
+      				$(go.Shape, { toArrow: "Standard" }),  // this is an arrowhead
+      				$(go.TextBlock,                        // this is a Link label
+        				new go.Binding("text", "linktext"))
+    			);
 
 
 				// handle clicks
-				
+							
 				function showMessage(s) {
-   					var elem = document.getElementById("myDetails:grapes");
+   					var elem = document.getElementById("myDetails:hiddenButton");
    					elem.value = s;
    					//getnodes();
+   					document.getElementById('myDetails:hiddenButton').value = s;   					
    					getclick([{param: 'param1', value: elem.value}]);
   				}
 			    
@@ -194,13 +196,14 @@
 				    //var nodes = "{#buttonsBean.metadata}"
 				    //var nodes = getnodes();	  
 				    var nodesString = new String(nodes);
-				    //alert('nodesString = ' + nodesString);      
+				    alert('nodesString = ' + nodesString);      
 				    var obj = JSON.parse(nodesString);   
 					//nodes = new String(nodeString);	        
 					myDiagram.model = go.Model.fromJson(obj);
 					//myDiagram.model = go.Model.fromJson(nodes);
 				}
  				</script>
+
 
 </h:body>
 </html>

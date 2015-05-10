@@ -25,6 +25,15 @@ public class ButtonsBean implements Serializable {
 	private String text = "Starting text";// getter + setter
 	private String metadata = null;
 	private String message = "bean message";
+	private String clickValue = "";
+
+	public String getClickValue() {
+		return clickValue;
+	}
+
+	public void setClickValue(String clickValue) {
+		this.clickValue = clickValue;
+	}
 
 	public String getMessage() {
 		return message;
