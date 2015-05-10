@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /*
+ * http://www.jsonschema2pojo.org/
+ * 
 nodesString = {
 		  "class": "go.GraphLinksModel",
 		  "nodeDataArray":[
