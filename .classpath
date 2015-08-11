@@ -15,7 +15,7 @@
 	<classpathentry including="**/*.java" kind="src" path="src/main/resources"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/jstl/1.2/jstl-1.2.jar" sourcepath="M2_REPO/javax/servlet/jstl/1.2/jstl-1.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" sourcepath="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar" sourcepath="M2_REPO/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar" sourcepath="/home/donkey/.m2/repository/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/el/el-api/2.2/el-api-2.2.jar" sourcepath="M2_REPO/javax/el/el-api/2.2/el-api-2.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/sun/faces/jsf-api/2.1.11/jsf-api-2.1.11.jar" sourcepath="/home/donkey/.m2/repository/com/sun/faces/jsf-api/2.1.11/jsf-api-2.1.11-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/sun/faces/jsf-impl/2.1.11/jsf-impl-2.1.11.jar" sourcepath="/home/donkey/.m2/repository/com/sun/faces/jsf-impl/2.1.11/jsf-impl-2.1.11-sources.jar"/>
