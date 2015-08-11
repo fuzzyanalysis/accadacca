@@ -87,7 +87,15 @@ public class WikipediaBean {
 		List<String> contents = JsonPath.read(sb.toString(),  "$..source");
 //			obj = new JSONObject(sb.toString());
 //			val = (String) obj.getJSONObject("query").getJSONObject("pages").getJSONObject("13673345").get("extract");
-		val = contents.get(0).toString();
+		//val = contents.get(0).toString();		
+		if(contents.toString().length()>400){
+			val = contents.toString().substring(0, 400) + " ...";	
+		} else if ("[]".equals(contents.toString())){
+			val = "[No information found on Wikipedia]";
+		} else {
+			val = contents.toString();
+		}
+		
 		this.logo = val;
 		return val;
 		
@@ -127,7 +135,14 @@ public class WikipediaBean {
 		List<String> contents = JsonPath.read(sb.toString(),  "$..extract");
 //			obj = new JSONObject(sb.toString());
 //			val = (String) obj.getJSONObject("query").getJSONObject("pages").getJSONObject("13673345").get("extract");
-		val = contents.toString().substring(0, 400) + " ...";
+		if(contents.toString().length()>400){
+			val = contents.toString().substring(0, 400) + " ...";	
+		} else if ("[]".equals(contents.toString())){
+			val = "[No information found on Wikipedia]";
+		} else {
+			val = contents.toString();
+		}
+		
 		this.html = val;
 		return val;
 		
