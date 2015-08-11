@@ -1,4 +1,4 @@
-primefaces
+Accadacca (soon to be OpenEVs)
 ==========
 
-Practicing primefaces
+Practicing primefaces with a toy project - a wizard for converting gas cars to electrical cars
